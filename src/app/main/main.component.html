@@ -1,0 +1,37 @@
+<main class="main">
+  <section class="content" [ngSwitch]="status">
+    <div class="content__success" *ngSwitchCase="'success'">
+      <h1>Главный экран</h1>
+      <ul>
+        <div *ngFor="let pokemon of pokemonList">
+          <p>{{pokemon.name}}</p>
+        </div>
+      </ul>
+      <div>
+        <label>limit  <input type="number" [(ngModel)]="limit" (keydown.enter)="onGetData()"></label>
+        <button (click)="onGetData()" class="button">Ok</button>
+        <div class="pagination">
+          <p class="pagination__page" *ngFor="let page of pages" (click)="onOpenPage(page)">{{page}}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="content__loader" *ngSwitchCase="'loader'">
+      <ng-container *ngTemplateOutlet="loader"></ng-container>
+    </div>
+
+    <div class="content__error" *ngSwitchCase="'error'">
+      <h1>Ошибка...</h1>
+    </div>
+
+    <div class="content__intro" *ngSwitchDefault>
+      <h1>Intro</h1>
+    </div>
+
+  </section>
+</main>
+
+
+<ng-template #loader>
+  <h1> Загрузка....</h1>
+</ng-template>

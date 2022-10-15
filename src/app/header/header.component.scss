@@ -1,0 +1,37 @@
+.header{
+  border-bottom: 6px solid black;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background-color: firebrick;
+  &__welcome{
+    max-width: 100px;
+  }
+  &__search{
+    margin: 20px 0;
+    width: 300px;
+    z-index: 1;
+  }
+  &__circle{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60px;
+    height: 60px;
+    background-color: white;
+    border: 6px solid black;
+    border-radius: 100%;
+    &:after{
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: white;
+      border: 3px solid black;
+      border-radius: 100%;
+      top: 32%;
+      left: 28%;
+    }
+  }
+}

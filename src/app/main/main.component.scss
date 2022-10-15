@@ -1,0 +1,32 @@
+@import '/src/scss/variables';
+
+.main{
+  .content{
+
+    &__success{
+      .button{
+        cursor: pointer;
+      }
+      .pagination{
+        display: flex;
+        flex-direction: row;
+        &__page{
+          text-align: center;
+          width: 18px;
+          border: none;
+          padding: 4px ;
+          box-shadow: 0 0 40px rgba(0, 0, 0, .2) inset;
+          border-radius: 4px;
+          margin-left: 10px;
+          cursor: pointer;
+          background-color: $red;
+          color: white;
+        }
+      }
+    }
+    &__loader{}
+    &__error{}
+    &__intro{}
+  }
+
+}

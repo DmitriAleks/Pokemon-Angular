@@ -1,0 +1,8 @@
+@import '/src/scss/variables';
+.input{
+  padding: 8px 4px;
+  outline: none;
+  font-size: 16px;
+  &::-webkit-input-placeholder { color: $red }
+  &::-moz-placeholder { color: $red }
+}
