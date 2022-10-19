@@ -1,4 +1,5 @@
 import {Component, Input} from "@angular/core";
+import {PokemonInfoResponse} from "../../services/httpt.service";
 
 
 @Component({
@@ -8,5 +9,7 @@ import {Component, Input} from "@angular/core";
 })
 
 export class CardComponent {
+
+  @Input('pokemon') pokemon! : PokemonInfoResponse
 
 }

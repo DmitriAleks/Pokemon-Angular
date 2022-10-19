@@ -2,7 +2,7 @@
 
 .main{
   .content{
-
+  padding: 40px 0;
     &__success{
       .button{
         cursor: pointer;
@@ -20,8 +20,24 @@
           margin-left: 10px;
           cursor: pointer;
           background-color: $red;
-          color: white;
+          color: $white;
+          &_active{
+            background-color: $white;
+            color: $red;
+          }
         }
+      }
+    }
+    &__pokemon-list{//вопрос к БЭМУ! о вложености
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-gap: 20px;
+      padding: 0 40px;
+      @media screen and (max-width:$tablet) {
+        grid-template-columns: 1fr 1fr;
+      }
+      @media screen and (max-width:$phone) {
+        grid-template-columns: 1fr ;
       }
     }
     &__loader{}
