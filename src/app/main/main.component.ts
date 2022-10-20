@@ -1,7 +1,13 @@
 import {Component} from "@angular/core";
-import {catchError, Subscription, throwError} from "rxjs";
-import {HttptService} from "../services/httpt.service";
+import {catchError, Subscription, tap, throwError} from "rxjs";
+import {HttptService, PokemonInfoResponse} from "../services/httpt.service";
 
+enum RESPONSE_STATUS {
+  LOADER = 'loader',
+  SUCCESS = 'success',
+  ERROR = 'error',
+  INTRO = 'intro',
+}
 
 @Component({
   selector: 'app-main',
@@ -9,13 +15,15 @@ import {HttptService} from "../services/httpt.service";
   styleUrls: ['./main.component.scss']
 })
 
-
 export class MainComponent {
-  pokemonList!: [{ name: string, url: string }]
-  status = 'loader'
+  status = RESPONSE_STATUS.LOADER
   offset = 0
   limit = 20
   pages = []
+  currentPage = 1
+  pokemonList: PokemonInfoResponse[] = []
+  leftPortionPageNumber = 0;
+  rightPortionPageNumber = 10;
 
   private subscription = new Subscription();
 
@@ -26,20 +34,27 @@ export class MainComponent {
     this.subscription.add(this.httpRequest.getPokemonsList(limit, offset)
       .pipe(
         catchError((err) => {
-            console.log(err);
-            this.status = 'error'
+            this.status = RESPONSE_STATUS.ERROR
             return throwError(err);
           },
         ),
       ).subscribe(
         response => {
-          this.pokemonList = response.results
-          this.status = 'success'
+          this.pokemonList = []
+          response.results.map(el=>{
+            this.httpRequest.getPokemonInfo(el.name).subscribe(
+              response => {
+              this.pokemonList.push(response)
+              }
+            )
+          })
+          this.status = RESPONSE_STATUS.SUCCESS
           this.pages = []
           for (let i = 1; i <= Math.ceil(response.count / limit); i++) {
             // @ts-ignore
             this.pages.push(i)
           }
+         this.pages =  this.pages.filter(p => p >= this.leftPortionPageNumber && p <= this.rightPortionPageNumber)
         }))
   }
 
@@ -51,6 +66,9 @@ export class MainComponent {
     this.getPokemonList(this.limit, this.offset)
   }
   onOpenPage(page:number){
+    this.currentPage = page
+    this.leftPortionPageNumber = page - 5;
+    this.rightPortionPageNumber = page + 5;
     this.getPokemonList(this.limit, (page - 1) * this.limit )
   }
 

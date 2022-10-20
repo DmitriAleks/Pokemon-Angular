@@ -8,19 +8,23 @@ import {HeaderComponent} from "./header/header.component";
 import { HttpClientModule} from "@angular/common/http";
 import {CardComponent} from "./common/card/card.component";
 import {FormsModule} from "@angular/forms";
+import {PortalModule} from '@angular/cdk/portal';
+import { PortalComponent } from './components/cdk/portal/portal.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     MainComponent,
     HeaderComponent,
-    CardComponent
+    CardComponent,
+    PortalComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    PortalModule
   ],
   providers: [],
   bootstrap: [AppComponent]
